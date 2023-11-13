@@ -1,0 +1,16 @@
+digraph G {
+    node [shape=record];
+    
+    Users [label="{Users|+UserID: INT\lUsername: TEXT\lEmail: TEXT\l|PRIMARY KEY: (UserID)}"];
+    Recipes [label="{Recipes|+RecipeID: INT\lRecipeName: TEXT\lCuisineType: TEXT\lPreparationTime: INT\l|PRIMARY KEY: (RecipeID)}"];
+    Ingredients [label="{Ingredients|+IngredientID: INT\lIngredientName: TEXT\l|PRIMARY KEY: (IngredientID)}"];
+    RecipeIngredients [label="{RecipeIngredients|+RecipeIngredientID: INT\lRecipeID: INT\lIngredientID: INT\lQuantity: REAL\lUnit: TEXT\l|PRIMARY KEY: (RecipeIngredientID)\lFOREIGN KEY: (RecipeID) REFERENCES Recipes, (IngredientID) REFERENCES Ingredients}"];
+    MealPlans [label="{MealPlans|+MealPlanID: INT\lUserID: INT\lRecipeID: INT\lDate: DATE\l|PRIMARY KEY: (MealPlanID)\lFOREIGN KEY: (UserID) REFERENCES Users, (RecipeID) REFERENCES Recipes}"];
+    UserPreferences [label="{UserPreferences|+UserPreferenceID: INT\lUserID: INT\lPreferredCuisine: TEXT\lDietaryRestrictions: TEXT\l|PRIMARY KEY: (UserPreferenceID)\lFOREIGN KEY: (UserID) REFERENCES Users}"];
+    
+    Users -> UserPreferences [label="1:N", dir=back];
+    Users -> MealPlans [label="1:N", dir=back];
+    Recipes -> RecipeIngredients [label="1:N", dir=back];
+    Recipes -> MealPlans [label="1:N", dir=back];
+    Ingredients -> RecipeIngredients [label="1:N", dir=back];
+}

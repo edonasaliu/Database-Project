@@ -1,0 +1,15 @@
+digraph G {
+    node [shape=record];
+    
+    Users [label="{Users|+UserID: INT|Username: TEXT\lEmail: TEXT\l}"];
+    Accounts [label="{Accounts|+AccountID: INT|AccountName: TEXT\lAccountType: TEXT\lBalance: REAL\l}"];
+    Categories [label="{Categories|+CategoryID: INT|CategoryName: TEXT\l}"];
+    Transactions [label="{Transactions|+TransactionID: INT|TransactionType: TEXT\lAmount: REAL\lTransactionDate: DATE\lDescription: TEXT\l}"];
+    Budgets [label="{Budgets|+BudgetID: INT|Amount: REAL\lMonthYear: DATE\l}"];
+    
+    Users -> Accounts [label="1:N"];
+    Users -> Budgets [label="1:N"];
+    Accounts -> Transactions [label="1:N"];
+    Categories -> Transactions [label="1:N"];
+    Categories -> Budgets [label="1:N"];
+}
